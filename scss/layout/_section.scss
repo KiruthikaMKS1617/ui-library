@@ -1,0 +1,13 @@
+@use "../tokens" as tokens;
+
+.section {
+  padding-block: tokens.$section-padding-mobile;
+
+  @media (min-width: tokens.$bp-md) {
+    padding-block: tokens.$section-padding-desktop;
+  }
+
+  @media (min-width: tokens.$bp-xl) {
+    padding-block: tokens.$section-padding-xl;
+  }
+}
