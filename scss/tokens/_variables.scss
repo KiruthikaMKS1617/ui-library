@@ -1,0 +1,20 @@
+// tokens/_variables.scss
+
+//Typography
+$font-body: 1.4rem; // 14px
+$font-body-lg: 1.8rem; // 18px
+$font-heading-sm: 2.8rem; // 28px
+$font-heading-lg: 3.6rem; // 36px (for hero if needed)
+
+$line-height-tight: 1.2;
+$line-height-normal: 1.6;
+$line-height-loose: 1.8;
+
+//Layout
+$max-width: 110rem; // 1100px
+
+// Breakpoints
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1200px;

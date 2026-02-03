@@ -3,9 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>UI Library</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
-  <body></body>
+  <body>
+    <nav>
+      <div class="container">
+        <div class="nav__bar">
+          <a href="#" class="nav__link nav__link--brand">UI Library</a>
+
+          <button
+            class="nav__toggle"
+            aria-label="Toggle Nav Menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            BTN
+          </button>
+        </div>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav">
+            <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+            <li class="nav__item">
+              <a href="#" class="nav__link">Components</a>
+            </li>
+            <li class="nav__item">
+              <a href="#" class="nav__link">Documentation</a>
+            </li>
+            <li class="nav__item"><a href="#" class="nav__link">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header>
+      <section class="hero">
+        <h1>UI Library</h1>
+        <p>
+          A collection of reusable UI components for modern web applications.
+        </p>
+      </section>
+    </header>
+    <main></main>
+    <footer>
+      <p>&copy; 2024 UI Library. All rights reserved.</p>
+    </footer>
+  </body>
 </html>

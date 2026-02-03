@@ -6,8 +6,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "sass": "sass styles/main.scss css/main.css",
-    "watch": "sass --watch styles/main.scss css/main.css",
+    "sass": "sass scss/main.scss css/main.css",
+    "watch": "sass --watch scss/main.scss css/main.css",
     "start": "live-server --watch=index.html,css",
     "dev": "npm-run-all --parallel watch start"
   },
