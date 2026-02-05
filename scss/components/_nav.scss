@@ -1,0 +1,104 @@
+@use "../tokens" as tokens;
+@use "../utils" as utils;
+
+@mixin nav-menu-visibility($visible: true) {
+  @if $visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  } @else {
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+
+  &--scrolled {
+    border-color: #222;
+  }
+
+  &__content {
+    @media (min-width: tokens.$bp-md) {
+      @include utils.flex-sb-c;
+    }
+  }
+
+  &__bar {
+    height: 56px;
+    @include utils.flex-sb-c;
+  }
+
+  &__toggle {
+    @media (min-width: tokens.$bp-md) {
+      display: none;
+    }
+  }
+
+  &__menu {
+    position: fixed;
+    inset: 56px 0 0 0;
+    background-color: #fff;
+
+    @include nav-menu-visibility(false);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s linear 0.3s;
+
+    @media (min-width: tokens.$bp-md) {
+      position: static;
+      inset: auto;
+      padding: 0;
+
+      @include nav-menu-visibility(true);
+      transition: none;
+    }
+  }
+
+  &--open &__menu {
+    @include nav-menu-visibility(true);
+    transition-delay: 0s;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-inline: tokens.$space-2;
+
+    @media (min-width: tokens.$bp-md) {
+      flex-direction: row;
+      gap: tokens.$space-2;
+      padding: tokens.$space-1 0;
+    }
+  }
+
+  &__item {
+    @media (min-width: tokens.$bp-md) {
+      padding-block: tokens.$space-1;
+    }
+  }
+
+  &__link {
+    color: #333;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #000;
+    }
+    &--active {
+      color: #000;
+      font-weight: 600;
+    }
+  }
+}
