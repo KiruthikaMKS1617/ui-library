@@ -2,6 +2,7 @@
 
 .section {
   padding-block: tokens.$section-padding-mobile;
+  height: 500px;
 
   @media (min-width: tokens.$bp-md) {
     padding-block: tokens.$section-padding-desktop;

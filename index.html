@@ -6,12 +6,22 @@
     <title>UI Library</title>
 
     <link rel="stylesheet" href="css/main.css" />
+    <script type="module" src="js/core/index.js"></script>
   </head>
+
   <body>
+    <div
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+      id="nav-status"
+    ></div>
     <nav class="nav">
       <div class="container nav__content">
         <div class="nav__bar">
-          <a href="#" class="nav__link nav__link--brand">UI Library</a>
+          <a href="#" class="nav__link nav__link--brand"
+            ><strong>UI Library</strong></a
+          >
 
           <button
             class="nav__toggle"
@@ -24,14 +34,18 @@
         </div>
         <div class="nav__menu" id="mobile-menu">
           <ul class="nav__list">
-            <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
             <li class="nav__item">
-              <a href="#" class="nav__link">Components</a>
+              <a href="#home" class="nav__link">Home</a>
             </li>
             <li class="nav__item">
-              <a href="#" class="nav__link">Documentation</a>
+              <a href="#components" class="nav__link">Components</a>
             </li>
-            <li class="nav__item"><a href="#" class="nav__link">GitHub</a></li>
+            <li class="nav__item">
+              <a href="#docs" class="nav__link">Documentation</a>
+            </li>
+            <li class="nav__item">
+              <a href="#github" class="nav__link">GitHub</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -44,9 +58,47 @@
         </p>
       </section>
     </header>
-    <main></main>
+    <main>
+      <section class="section" id="home">
+        <div class="container">
+          <h2>Welcome to UI Library</h2>
+          <p>
+            UI Library is a set of customizable and accessible UI components
+            built with modern web technologies. It provides a consistent design
+            system and helps developers create beautiful and functional user
+            interfaces quickly and efficiently.
+          </p>
+          <button>Home</button>
+        </div>
+      </section>
+      <section class="section" id="components">
+        <div class="container">
+          <h2>Components</h2>
+          <p>
+            Explore our wide range of components, including buttons, forms,
+            modals, navigation bars, and more. Each component is designed to be
+            flexible and easy to integrate into your projects.
+          </p>
+          <a
+            href="https://ui-library.com/components"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Components</a
+          >
+        </div>
+      </section>
+      <section class="section" id="docs">
+        <div class="container">Docs</div>
+      </section>
+      <section class="section" id="github">
+        <div class="container">Github</div>
+      </section>
+    </main>
     <footer>
-      <p>&copy; 2024 UI Library. All rights reserved.</p>
+      <p>
+        &copy; <span class="copyright-year"></span> UI Library. All rights
+        reserved.
+      </p>
     </footer>
   </body>
 </html>

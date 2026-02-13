@@ -74,6 +74,29 @@ button {
   font: inherit;
 }
 
+/* Screen-reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
 .container {
   width: 100%;
   max-width: 110rem;
@@ -83,6 +106,7 @@ button {
 
 .section {
   padding-block: 1.6rem;
+  height: 500px;
 }
 @media (min-width: 768px) {
   .section {
@@ -101,10 +125,10 @@ button {
   z-index: 1000;
   background-color: #fff;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease;
+  transition: border-bottom 0.3s ease;
 }
 .nav--scrolled {
-  border-color: #222;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1019607843);
 }
 @media (min-width: 768px) {
   .nav__content {
@@ -118,6 +142,10 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.nav__toggle:focus {
+  outline: 1px solid rgb(21, 134, 255);
+  outline-offset: 3px;
 }
 @media (min-width: 768px) {
   .nav__toggle {
