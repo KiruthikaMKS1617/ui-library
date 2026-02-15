@@ -1,0 +1,36 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  &__content {
+    position: relative; // to locate its absolute children
+    width: min(600px, 90vw);
+    max-height: 80vh;
+    background: #ffca94;
+    padding: 2rem;
+    border-radius: 12px;
+    overflow: auto;
+  }
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 30rem;
+  margin: 0 auto;
+}

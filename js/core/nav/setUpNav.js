@@ -40,6 +40,21 @@ const setupNav = () => {
 
   // Document click - outside nav & link click
   document.addEventListener("click", (e) => {
+    // Now imagine what happens without this guard --- if (!nav.classList.contains("nav--open")) return;👇
+
+    // When you click toggle:
+
+    // 1️⃣ Toggle button listener runs
+    // 2️⃣ Event bubbles up to document
+    // 3️⃣ Document click listener runs
+    // 4️⃣ Document logic sees "outside nav"
+    // 5️⃣ It closes nav again
+
+    // Result?
+
+    // Open → immediately close.
+
+    // Bug.
     if (!nav.classList.contains("nav--open")) return;
     const clickedLink = e.target.closest(".nav__link");
     const clickedToggle = toggleBtn.contains(e.target);

@@ -212,4 +212,37 @@ button {
   font-weight: 600;
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+}
+.modal[hidden] {
+  display: none;
+}
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+.modal__content {
+  position: relative;
+  width: min(600px, 90vw);
+  max-height: 80vh;
+  background: #ffca94;
+  padding: 2rem;
+  border-radius: 12px;
+  overflow: auto;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 30rem;
+  margin: 0 auto;
+}
+
 /*# sourceMappingURL=main.css.map */

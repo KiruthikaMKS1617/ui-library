@@ -16,7 +16,7 @@ document.addEventListener("keydown", (e) => {
 
   const focusableElements = [
     ...container.querySelectorAll(
-      "a, button, input, select, textarea, [tabindex]:not([tabindex='-1'])",
+      "[href], button, input, select, textarea, [tabindex]:not([tabindex='-1'])",
     ),
   ];
 
