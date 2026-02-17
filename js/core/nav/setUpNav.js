@@ -1,4 +1,4 @@
-import { activateFocusTrap, deactivateFocusTrap } from "../global/focusTrap.js";
+import { createFocusTrap } from "../global/createFocusTrap.js";
 
 const setupNav = () => {
   const nav = document.querySelector(".nav");
@@ -6,6 +6,8 @@ const setupNav = () => {
   const srOnlyNavStatus = document.getElementById("nav-status");
 
   if (!nav || !toggleBtn) return;
+
+  const trap = createFocusTrap(nav);
 
   // Toggle Nav
   const toggleNav = ({ isOpen, returnFocus = false }) => {
@@ -16,14 +18,16 @@ const setupNav = () => {
     toggleBtn.setAttribute("aria-expanded", isOpen);
     toggleBtn.setAttribute("aria-label", isOpen ? "Close Menu" : "Open Menu");
     document.body.style.overflow = isOpen ? "hidden" : "";
+
     if (srOnlyNavStatus)
       srOnlyNavStatus.textContent = isOpen
         ? "Navigation Menu Opened"
         : "Navigation Menu Closed";
-    if (isOpen) activateFocusTrap(nav);
+
+    if (isOpen) trap.activate(nav);
     else {
       if (returnFocus) toggleBtn.focus();
-      deactivateFocusTrap(nav);
+      trap.deactivate(nav);
     }
   };
 

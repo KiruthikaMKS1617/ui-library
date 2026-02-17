@@ -1,10 +1,13 @@
-import { activateFocusTrap, deactivateFocusTrap } from "../global/focusTrap.js";
+import { createFocusTrap } from "../global/createFocusTrap.js";
+
 const setUpModal = () => {
   let lastTrigger = null;
   const openBtn = document.querySelector("[data-modal]");
   const modal = document.querySelector(".modal");
 
   if (!openBtn || !modal) return;
+
+  const trap = createFocusTrap(modal);
 
   const overlay = modal.querySelector(".modal__overlay");
   const closeBtn = modal.querySelector(".modal__close");
@@ -18,7 +21,7 @@ const setUpModal = () => {
     ];
 
     requestAnimationFrame(() => {
-      activateFocusTrap(modal); // If focus fires first and user presses Tab very fast, trap may not yet be active. hence activate before setting custom focus.
+      trap.activate(modal); // If focus fires first and user presses Tab very fast, trap may not yet be active. hence activate before setting custom focus.
 
       const initialFocusEl =
         modal.querySelector("[data-initial-focus]") || focusableElements[0];
@@ -27,7 +30,7 @@ const setUpModal = () => {
   };
   const closeModal = () => {
     modal.hidden = true;
-    deactivateFocusTrap(modal);
+    trap.deactivate(modal);
     if (lastTrigger) lastTrigger.focus();
   };
 
