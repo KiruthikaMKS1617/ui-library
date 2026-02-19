@@ -1,0 +1,24 @@
+@mixin content-grid($cols: auto, $rows: auto, $gap: 2rem) {
+  display: grid;
+
+  // Sizing: Default is content-based ('auto')
+  grid-template-columns: $cols;
+  grid-template-rows: $rows;
+
+  // Centering: Centers the grid itself and items within cells
+  place-content: center;
+  place-items: center;
+
+  // Spacing: Customizable gap (default 2rem)
+  gap: $gap;
+}
+
+// Default: Everything based on content, 2rem gap
+.default-grid {
+  @include content-grid();
+}
+
+// Custom: 3 equal columns, content-based rows, 1rem gap
+.grid-6-a {
+  @include content-grid($cols: repeat(6, 1fr), $gap: 1rem);
+}

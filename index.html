@@ -82,38 +82,55 @@
       <section class="section" id="components">
         <div class="container">
           <h2>Components</h2>
-          <h3>Modal</h3>
-          <button data-modal="login">Open Modal</button>
-          <div class="modal" data-modal-id="login" hidden>
-            <div class="modal__overlay"></div>
-            <div
-              class="modal__content"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-title"
-            >
-              <button class="modal__close">X</button>
-              <h2 id="modal-title">Login</h2>
-              <div class="container">
-                <form class="login__form">
-                  <input
-                    type="email"
-                    placeholder="someone@example.com"
-                    name="email"
-                    id="email"
-                    data-initial-focus
-                  />
-                  <input
-                    type="password"
-                    placeholder="************"
-                    name="password"
-                    id="password"
-                  />
-                  <input type="submit" value="Login" />
-                  <input type="button" value="Cancel" />
-                </form>
+          <div class="components grid-6-a">
+            <section>
+              <h3>Modal</h3>
+              <button data-modal="login">Open Modal</button>
+              <div class="modal" data-modal-id="login" hidden>
+                <div class="modal__overlay"></div>
+                <div
+                  class="modal__content"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="modal-title"
+                >
+                  <button class="modal__close">X</button>
+                  <h2 id="modal-title">Login</h2>
+                  <div class="container">
+                    <form class="login__form">
+                      <input
+                        type="email"
+                        placeholder="someone@example.com"
+                        name="email"
+                        id="email"
+                        data-initial-focus
+                      />
+                      <input
+                        type="password"
+                        placeholder="************"
+                        name="password"
+                        id="password"
+                      />
+                      <input type="submit" value="Login" />
+                      <input type="button" value="Cancel" />
+                    </form>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
+            <section>
+              <h3>Dropdown</h3>
+              <div class="dropdown">
+                <button class="dropdown__trigger">Options</button>
+
+                <div class="dropdown__menu">
+                  <button class="dropdown__item">Edit</button>
+                  <button class="dropdown__item">Duplicate</button>
+                  <div class="dropdown__divider"></div>
+                  <button class="dropdown__item">Delete</button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>

@@ -1,0 +1,98 @@
+/* ================================
+   Dropdown Component
+================================ */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  /* ---------- Trigger ---------- */
+
+  &__trigger {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    background: transparent;
+    border: 1px solid var(--clr-border, #ddd);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+
+    font: inherit;
+
+    &:focus-visible {
+      outline: 2px solid var(--clr-focus, #4c9ffe);
+      outline-offset: 2px;
+    }
+  }
+
+  /* ---------- Menu ---------- */
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+
+    min-width: 180px;
+    padding: 0.4rem 0;
+
+    background: #fff;
+    border: 1px solid var(--clr-border, #e5e5e5);
+    border-radius: 8px;
+    box-shadow:
+      0 6px 12px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.05);
+
+    z-index: 1000;
+
+    /* animation base */
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+
+  /* ---------- Open State ---------- */
+
+  &[data-open="true"] &__menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* ---------- Items ---------- */
+
+  &__item {
+    display: block;
+    width: 100%;
+
+    padding: 0.55rem 0.9rem;
+    background: none;
+    border: none;
+    text-align: left;
+
+    font: inherit;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background: var(--clr-hover, #f3f6fb);
+      outline: none;
+    }
+
+    &[aria-selected="true"] {
+      background: var(--clr-active, #e8f1ff);
+    }
+  }
+
+  /* ---------- Divider ---------- */
+
+  &__divider {
+    height: 1px;
+    margin: 0.3rem 0;
+    background: #eee;
+  }
+}
