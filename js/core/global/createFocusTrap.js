@@ -1,4 +1,4 @@
-export const createFocusTrap = (container) => {
+export const createFocusTrap = ({ container }) => {
   let focusableEls = [];
   let firstEl = null;
   let lastEl = null;

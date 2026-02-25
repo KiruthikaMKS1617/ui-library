@@ -18,7 +18,14 @@
   @include content-grid();
 }
 
-// Custom: 3 equal columns, content-based rows, 1rem gap
-.grid-6-a {
-  @include content-grid($cols: repeat(6, 1fr), $gap: 1rem);
+// Custom: 2 equal columns, content-based rows, 1rem gap
+.grid-2-a {
+  @include content-grid($cols: 1fr, $gap: 2rem);
+
+  @media (min-width: 768px) {
+    @include content-grid($cols: max-content, $gap: 3rem);
+  }
+  @media (min-width: 1200px) {
+    @include content-grid($cols: repeat(2, max-content), $gap: 5rem);
+  }
 }

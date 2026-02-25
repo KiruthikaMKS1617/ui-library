@@ -1,34 +1,18 @@
+import { createDropdown } from "../global/createDropdown.js";
+
 const setUpDropdown = () => {
-  const dropdown = document.querySelector(".dropdown");
-  if (!dropdown) return;
+  const dropdowns = document.querySelectorAll(".dropdown");
 
-  const trigger = dropdown.querySelector(".dropdown__trigger");
-  const menu = dropdown.querySelector(".dropdown__menu");
+  if (!dropdowns.length) return;
 
-  function open() {
-    dropdown.dataset.open = "true";
-  }
+  dropdowns.forEach((dropdownEl) => {
+    // prevent duplicate initialization
+    if (dropdownEl.__dropdownInstance) return;
 
-  function close() {
-    dropdown.dataset.open = "false";
-  }
+    const instance = createDropdown(dropdownEl);
 
-  function toggle() {
-    const isOpen = dropdown.dataset.open === "true";
-    isOpen ? close() : open();
-  }
-
-  /* --- Trigger click --- */
-  trigger.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent outside click close
-    toggle();
-  });
-
-  /* --- Outside click --- */
-  document.addEventListener("click", (e) => {
-    if (!dropdown.contains(e.target)) {
-      close();
-    }
+    // store reference on element (debugging + safety)
+    dropdownEl.__dropdownInstance = instance;
   });
 };
 

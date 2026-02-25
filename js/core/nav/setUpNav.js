@@ -7,39 +7,42 @@ const setupNav = () => {
 
   if (!nav || !toggleBtn) return;
 
-  const trap = createFocusTrap(nav);
+  const trap = createFocusTrap({ container: nav });
 
   // Toggle Nav
-  const toggleNav = ({ isOpen, returnFocus = false }) => {
+  const toggleNav = ({ shouldOpen, focusTrigger = false }) => {
     const isCurrentlyOpen = nav.classList.contains("nav--open");
-    if (isCurrentlyOpen === isOpen) return;
+    if (isCurrentlyOpen === shouldOpen) return;
 
-    nav.classList.toggle("nav--open", isOpen);
-    toggleBtn.setAttribute("aria-expanded", isOpen);
-    toggleBtn.setAttribute("aria-label", isOpen ? "Close Menu" : "Open Menu");
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    nav.classList.toggle("nav--open", shouldOpen);
+    toggleBtn.setAttribute("aria-expanded", shouldOpen);
+    toggleBtn.setAttribute(
+      "aria-label",
+      shouldOpen ? "Close Menu" : "Open Menu",
+    );
+    document.body.style.overflow = shouldOpen ? "hidden" : "";
 
     if (srOnlyNavStatus)
-      srOnlyNavStatus.textContent = isOpen
+      srOnlyNavStatus.textContent = shouldOpen
         ? "Navigation Menu Opened"
         : "Navigation Menu Closed";
 
-    if (isOpen) trap.activate(nav);
+    if (shouldOpen) trap.activate(nav);
     else {
-      if (returnFocus) toggleBtn.focus();
+      if (focusTrigger) toggleBtn.focus();
       trap.deactivate(nav);
     }
   };
 
   // Toggle button click
   toggleBtn.addEventListener("click", () =>
-    toggleNav({ isOpen: !nav.classList.contains("nav--open") }),
+    toggleNav({ shouldOpen: !nav.classList.contains("nav--open") }),
   );
 
   // ESC key closes nav
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && nav.classList.contains("nav--open"))
-      toggleNav({ isOpen: false, returnFocus: true });
+      toggleNav({ shouldOpen: false, focusTrigger: true });
   });
 
   // Document click - outside nav & link click
@@ -67,7 +70,8 @@ const setupNav = () => {
     if (clickedToggle) return;
 
     // 2️⃣ Click link inside nav → close nav || Click outside nav → close nav
-    if (clickedLink || !nav.contains(e.target)) toggleNav({ isOpen: false });
+    if (clickedLink || !nav.contains(e.target))
+      toggleNav({ shouldOpen: false });
   });
 };
 

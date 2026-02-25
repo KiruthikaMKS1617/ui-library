@@ -82,11 +82,13 @@
       <section class="section" id="components">
         <div class="container">
           <h2>Components</h2>
-          <div class="components grid-6-a">
+          <div class="components grid-2-a">
             <section>
-              <h3>Modal</h3>
-              <button data-modal="login">Open Modal</button>
-              <div class="modal" data-modal-id="login" hidden>
+              <h3>Login Modal</h3>
+              <button data-modal-open="login" aria-haspopup="dialog">
+                Login Modal
+              </button>
+              <div class="modal" data-modal="login" hidden>
                 <div class="modal__overlay"></div>
                 <div
                   class="modal__content"
@@ -121,13 +123,105 @@
             <section>
               <h3>Dropdown</h3>
               <div class="dropdown">
-                <button class="dropdown__trigger">Options</button>
+                <button
+                  class="dropdown__trigger"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                >
+                  Options
+                </button>
 
-                <div class="dropdown__menu">
-                  <button class="dropdown__item">Edit</button>
-                  <button class="dropdown__item">Duplicate</button>
+                <div class="dropdown__menu" role="menu">
+                  <button class="dropdown__item" role="menuitem">Edit</button>
+                  <button class="dropdown__item" role="menuitem">
+                    Duplicate
+                  </button>
                   <div class="dropdown__divider"></div>
-                  <button class="dropdown__item">Delete</button>
+                  <button class="dropdown__item" role="menuitem">Delete</button>
+                </div>
+              </div>
+            </section>
+            <section>
+              <div class="tabs">
+                <!-- TAB CONTROLLER -->
+                <div
+                  class="tabs__list"
+                  role="tablist"
+                  aria-label="Product Information"
+                >
+                  <!-- ACTIVE TAB -->
+                  <button
+                    class="tabs__tab"
+                    role="tab"
+                    id="tab-1"
+                    aria-selected="true"
+                    aria-controls="panel-1"
+                    tabindex="0"
+                  >
+                    Overview
+                  </button>
+
+                  <!-- INACTIVE TAB -->
+                  <button
+                    class="tabs__tab"
+                    role="tab"
+                    id="tab-2"
+                    aria-selected="false"
+                    aria-controls="panel-2"
+                    tabindex="-1"
+                  >
+                    Features
+                  </button>
+
+                  <!-- INACTIVE TAB -->
+                  <button
+                    class="tabs__tab"
+                    role="tab"
+                    id="tab-3"
+                    aria-selected="false"
+                    aria-controls="panel-3"
+                    tabindex="-1"
+                  >
+                    Pricing
+                  </button>
+                </div>
+
+                <!-- PANELS -->
+                <div class="tabs__panels">
+                  <!-- ACTIVE PANEL -->
+                  <section
+                    class="tabs__panel"
+                    role="tabpanel"
+                    id="panel-1"
+                    aria-labelledby="tab-1"
+                  >
+                    <h3>Overview</h3>
+                    <p>This is overview content.</p>
+                  </section>
+
+                  <!-- HIDDEN PANEL -->
+                  <section
+                    class="tabs__panel"
+                    role="tabpanel"
+                    id="panel-2"
+                    aria-labelledby="tab-2"
+                    hidden
+                  >
+                    <h3>Features</h3>
+                    <p>This is features content.</p>
+                  </section>
+
+                  <!-- HIDDEN PANEL -->
+                  <section
+                    class="tabs__panel"
+                    role="tabpanel"
+                    id="panel-3"
+                    aria-labelledby="tab-3"
+                    hidden
+                  >
+                    <h3>Pricing</h3>
+                    <p>This is pricing content.</p>
+                  </section>
                 </div>
               </div>
             </section>
