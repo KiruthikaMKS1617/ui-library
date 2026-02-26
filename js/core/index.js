@@ -6,6 +6,7 @@ import activeNavHighlight from "./nav/activeNavHighlight.js";
 import eventBubbling from "./learnedWith-Refs/eventBubbling.js"; // Exploration
 import setUpModal from "./modal/setUpModal.js";
 import setUpDropdown from "./dropdown/setUpDropdown.js";
+import setUpTabs from "./tabs/setUpTabs.js";
 
 copyRightYear();
 navScrollEffect();
@@ -15,3 +16,4 @@ activeNavHighlight();
 eventBubbling();
 setUpModal();
 setUpDropdown();
+setUpTabs();
