@@ -7,6 +7,7 @@ import eventBubbling from "./learnedWith-Refs/eventBubbling.js"; // Exploration
 import setUpModal from "./modal/setUpModal.js";
 import setUpDropdown from "./dropdown/setUpDropdown.js";
 import setUpTabs from "./tabs/setUpTabs.js";
+import setUpAccordions from "./accordion/setUpAccordions.js";
 
 copyRightYear();
 navScrollEffect();
@@ -17,3 +18,4 @@ eventBubbling();
 setUpModal();
 setUpDropdown();
 setUpTabs();
+setUpAccordions();

@@ -1,13 +1,13 @@
-@mixin content-grid($cols: auto, $rows: auto, $gap: 2rem) {
+@mixin content-grid($cols: auto, $gap: 2rem) {
   display: grid;
 
   // Sizing: Default is content-based ('auto')
   grid-template-columns: $cols;
-  grid-template-rows: $rows;
+  grid-template-rows: max-content;
 
   // Centering: Centers the grid itself and items within cells
   place-content: center;
-  place-items: center;
+  place-items: start;
 
   // Spacing: Customizable gap (default 2rem)
   gap: $gap;

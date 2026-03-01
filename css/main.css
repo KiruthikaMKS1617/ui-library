@@ -121,27 +121,27 @@ button {
 .default-grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-rows: max-content;
   place-content: center;
-  place-items: center;
+  place-items: start;
   gap: 2rem;
 }
 
 .grid-2-a {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: max-content;
   place-content: center;
-  place-items: center;
+  place-items: start;
   gap: 2rem;
 }
 @media (min-width: 768px) {
   .grid-2-a {
     display: grid;
     grid-template-columns: max-content;
-    grid-template-rows: auto;
+    grid-template-rows: max-content;
     place-content: center;
-    place-items: center;
+    place-items: start;
     gap: 3rem;
   }
 }
@@ -149,9 +149,9 @@ button {
   .grid-2-a {
     display: grid;
     grid-template-columns: repeat(2, max-content);
-    grid-template-rows: auto;
+    grid-template-rows: max-content;
     place-content: center;
-    place-items: center;
+    place-items: start;
     gap: 5rem;
   }
 }
@@ -251,7 +251,7 @@ button {
 
 .components > section {
   width: min(50rem, 75vw);
-  height: min(25rem, 75vw);
+  min-height: min(25rem, 75vw);
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -371,6 +371,57 @@ button {
   height: 1px;
   margin: 0.3rem 0;
   background: #eee;
+}
+
+/* accordion container */
+.accordion {
+  max-width: 600px;
+  font-family: sans-serif;
+}
+
+/* each item */
+.accordion__item {
+  border: 1px solid #ddd;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* trigger button */
+.accordion__trigger {
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  background: #f7f7f7;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* hover/focus */
+.accordion__trigger:hover,
+.accordion__trigger:focus {
+  background: #ececec;
+  outline: none;
+}
+
+/* panel content */
+.accordion__panel {
+  padding-inline: 16px;
+  background: white;
+  border-top: 1px solid #eee;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease, padding 250ms ease;
+}
+
+.accordion__panel[aria-open=true] {
+  padding-block: 16px;
+  grid-template-rows: 1fr;
+}
+
+.accordion__content {
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=main.css.map */

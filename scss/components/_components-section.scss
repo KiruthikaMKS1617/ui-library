@@ -1,7 +1,7 @@
 .components {
   & > section {
     width: min(50rem, 75vw);
-    height: min(25rem, 75vw);
+    min-height: min(25rem, 75vw);
     display: inline-flex;
     flex-direction: column;
     align-items: center;
