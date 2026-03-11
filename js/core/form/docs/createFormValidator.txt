@@ -1,0 +1,184 @@
+import { validateField } from "./validateField.js";
+import { showError, clearError } from "../uiErrorHandlers.js";
+import { debounce } from "../utils/debounce.js";
+
+/*
+Purpose:
+Validate a field and update UI based on validation result.
+
+Why separate this function?
+- reused by input event
+- reused by blur event
+- reused by form submit
+*/
+
+function validateAndRenderField({ input, rules, fieldState }) {
+  if (!input || !rules) return;
+
+  const name = input.name;
+  const value = fieldState[name].value;
+
+  if (!name) return;
+
+  const fieldRules = rules[name];
+
+  if (!fieldRules) return true; // defensive safety (as we already filter inputs based on rules in createFormValidator, this case should ideally never happen)
+
+  const result = validateField({ value, fieldRules });
+
+  fieldState[name].error = result.valid ? null : result.error; // update field state with validation result
+
+  // result structure
+  // {
+  //   valid: boolean
+  //   error: string | null
+  //   rule: string | null
+  // }
+
+  if (!result.valid) {
+    showError({
+      input,
+      errorMessage: result.error,
+    });
+
+    return false;
+  }
+
+  clearError({ input });
+  return true;
+}
+
+function computeFormState(fieldState) {
+  const errors = {};
+  let isValid = true;
+  let isDirty = false;
+
+  for (const fieldName in fieldState) {
+    const field = fieldState[fieldName];
+
+    if (field.isDirty) isDirty = true;
+    if (field.error) {
+      isValid = false;
+      errors[fieldName] = field.error;
+    }
+  }
+
+  return { errors, isValid, isDirty };
+}
+
+export function createFormValidator({ form, rules }) {
+  if (!form || !rules) return;
+
+  const fieldState = {};
+
+  // ==========================
+  // FIELD COLLECTION
+  // ==========================
+
+  // collect only fields that have validation rules
+  const inputs = [...form.elements].filter((el) => rules[el.name]);
+  console.log("LEARN FORM.ELS", { els: [...form.elements], inputs });
+  // Before: ---- with hardcoded input selector ----
+  // - const inputs = form.querySelectorAll("input, textarea, select");
+  // - engine scans all inputs
+  // - rules decide what to validate
+  // Now: ----
+  // - rules decide inputs
+  // - engine only handles relevant fields
+
+  // *** That is a cleaner system design.
+
+  if (!inputs.length) return;
+
+  // ==========================
+  // FIELD EVENT HANDLERS
+  // ==========================
+
+  inputs.forEach((input) => {
+    /*
+    Each field gets its own debounce instance.
+
+    Why?
+    If one debounce was shared across fields,
+    typing in one input could cancel validation in another.
+    */
+
+    const debouncedValidate = debounce(
+      () => validateAndRenderField({ input, rules, fieldState }),
+      300,
+    );
+
+    // We use this information to control UI behavior. This becomes the brain of the form. We update this fieldState.value on every input event, and use it to decide when to show errors, when to enable the submit button, etc.
+    fieldState[input.name] = {
+      value: input.value, // Submit data. Run validation
+      initialValue: input.value,
+      touched: false, // Show error only after user interaction - focus -> blur -> touched = true.
+      dirty: false, // Detect unsaved changes. Enable Save button.
+      error: null, // Display validation message
+    };
+
+    input.addEventListener("input", () => {
+      debouncedValidate();
+
+      // update field state
+      fieldState[input.name].value = input.value;
+      fieldState[input.name].dirty =
+        input.value !== fieldState[input.name].initialValue;
+    });
+
+    // validate immediately when user leaves field
+    input.addEventListener("blur", () => {
+      validateAndRenderField({ input, rules, fieldState });
+      fieldState[input.name].touched = true;
+    });
+  });
+
+  // ==========================
+  // FORM SUBMIT HANDLER
+  // ==========================
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let isFormValid = true;
+
+    /*
+    Validate every field so all errors show at once.
+    */
+
+    inputs.forEach((input) => {
+      const fieldValid = validateAndRenderField({ input, rules, fieldState });
+
+      if (!fieldValid) {
+        isFormValid = false;
+      }
+    });
+
+    const formState = computeFormState(fieldState);
+    console.log("Form State on Submit:", formState);
+
+    // Why formState?
+
+    // Submit is where we want full form awareness.
+
+    // Now we know:
+
+    // - form valid?
+    // - form dirty?
+    // - which fields have errors?
+
+    // This enables future features:
+
+    // - disable submit button
+    // - show error summary
+    // - warn unsaved changes
+    // - analytics
+
+    if (isFormValid) {
+      console.log("Form is valid. Ready to submit.");
+
+      // later we may enable actual submission
+      // form.submit();
+    }
+  });
+}

@@ -8,6 +8,7 @@ import setUpModal from "./modal/setUpModal.js";
 import setUpDropdown from "./dropdown/setUpDropdown.js";
 import setUpTabs from "./tabs/setUpTabs.js";
 import setUpAccordions from "./accordion/setUpAccordions.js";
+import initForms from "./form/initForms.js";
 
 copyRightYear();
 navScrollEffect();
@@ -19,3 +20,4 @@ setUpModal();
 setUpDropdown();
 setUpTabs();
 setUpAccordions();
+initForms();

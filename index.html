@@ -103,15 +103,15 @@
                       <input
                         type="email"
                         placeholder="someone@example.com"
-                        name="email"
-                        id="email"
+                        name="modal-email"
+                        id="modal-email"
                         data-initial-focus
                       />
                       <input
                         type="password"
                         placeholder="************"
-                        name="password"
-                        id="password"
+                        name="modal-password"
+                        id="modal-password"
                       />
                       <input type="submit" value="Login" />
                       <input type="button" value="Cancel" />
@@ -347,6 +347,81 @@
                   </div>
                 </div>
               </div>
+            </section>
+            <section class="auth-form">
+              <form class="form" id="signup-form" novalidate data-form="signup">
+                <h2 class="form__title">Create Account</h2>
+
+                <!-- Name -->
+                <div class="form__field">
+                  <label for="name" class="form__label">Full Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="form__input"
+                    placeholder="John Doe"
+                    data-validate="required|min:3"
+                    aria-describedby="name-error"
+                    aria-invalid="false"
+                  />
+                  <p class="form__error" id="name-error"></p>
+                </div>
+
+                <!-- Email -->
+                <div class="form__field">
+                  <label for="email" class="form__label">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    class="form__input"
+                    placeholder="you@example.com"
+                    data-validate="required|email"
+                    aria-describedby="email-error"
+                    aria-invalid="false"
+                  />
+                  <p class="form__error" id="email-error"></p>
+                </div>
+
+                <!-- Password -->
+                <div class="form__field">
+                  <label for="password" class="form__label">Password</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="form__input"
+                    placeholder="Minimum 8 characters"
+                    data-validate="required|min:8"
+                    aria-describedby="password-error"
+                    aria-invalid="false"
+                  />
+                  <p class="form__error" id="password-error"></p>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form__field">
+                  <label for="confirm-password" class="form__label">
+                    Confirm Password
+                  </label>
+                  <input
+                    id="confirm-password"
+                    name="confirmPassword"
+                    type="password"
+                    class="form__input"
+                    placeholder="Re-enter password"
+                    data-validate="required|match:password"
+                    aria-describedby="confirm-password-error"
+                    aria-invalid="false"
+                  />
+                  <p class="form__error" id="confirm-password-error"></p>
+                </div>
+
+                <button type="submit" class="form__button">
+                  Create Account
+                </button>
+              </form>
             </section>
           </div>
         </div>
