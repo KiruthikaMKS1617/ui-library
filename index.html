@@ -423,6 +423,34 @@
                 </button>
               </form>
             </section>
+            <section class="search" aria-labelledby="search-heading">
+              <div class="container search__content" data-open="false">
+                <label class="search__label" for="user-search"
+                  >Search users</label
+                >
+                <div class="search__field">
+                  <input
+                    id="user-search"
+                    class="search__input"
+                    type="text"
+                    placeholder="Type a name..."
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-controls="search-results"
+                  />
+
+                  <div class="search__results-container">
+                    <ul
+                      id="search-results"
+                      class="search__results"
+                      role="listbox"
+                      aria-live="polite"
+                    ></ul>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>

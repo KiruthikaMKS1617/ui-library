@@ -1,0 +1,172 @@
+import { debounce } from "../utils/debounce.js";
+
+const USERS = [
+  "Arun",
+  "Bala",
+  "Charan",
+  "Deepak",
+  "Dinesh",
+  "Karthik",
+  "Mahesh",
+  "Praveen",
+  "Rahul",
+  "Suresh",
+];
+
+function getFilteredUsers(query) {
+  return USERS.filter((user) => user.toLowerCase().includes(query));
+}
+
+function openResults(root) {
+  root.dataset.open = "true";
+  root.setAttribute("aria-open", "true");
+  root.querySelector(".search__input").setAttribute("aria-expanded", "true");
+}
+
+function closeResults({ root, resultsList }) {
+  const input = root.querySelector(".search__input");
+  resultsList.innerHTML = "";
+
+  root.dataset.open = "false";
+  root.setAttribute("aria-open", "false");
+  input.setAttribute("aria-expanded", "false");
+
+  // doing this to reset the combobox state (assume it has val,
+  // user has navigated through results using keyboard and then
+  // clicks outside to close results, when they focus back on
+  // input we want them to start fresh without any active
+  // descendant or selected state)
+  input.removeAttribute("aria-activedescendant");
+}
+
+function renderResults({ dataList, root, resultsList }) {
+  resultsList.innerHTML = "";
+
+  if (dataList.length === 0) {
+    const noResultEl = document.createElement("li");
+    noResultEl.className = "search__result search__no-result";
+    noResultEl.textContent = "No results found.";
+    resultsList.appendChild(noResultEl);
+    // this is not a selectable option, so we shouldn't set role="option" or aria-selected
+  } else {
+    dataList.forEach((name, index) => {
+      const li = document.createElement("li");
+      li.className = "search__result";
+      li.textContent = name;
+
+      li.setAttribute("role", "option");
+      li.setAttribute("id", `search-option-${index}`);
+      li.setAttribute("aria-selected", "false"); // default val right?
+      resultsList.appendChild(li);
+    });
+  }
+  openResults(root);
+}
+
+function handleKeyDown({ e, root, input, resultsList }) {
+  const results = [...resultsList.querySelectorAll('[role="option"]')]; // skipping "No results found" item as it doesn't have role="option"
+  let currentIndex = results.findIndex((result) =>
+    result.classList.contains("is-active"),
+  );
+  let nextIndex = null;
+  if (!results.length) return;
+
+  switch (e.key) {
+    case "ArrowDown":
+      e.preventDefault();
+      nextIndex = (currentIndex + 1) % results.length;
+      break;
+    case "ArrowUp":
+      e.preventDefault();
+      nextIndex = (currentIndex - 1 + results.length) % results.length;
+      break;
+    case "Enter":
+      e.preventDefault();
+      if (currentIndex !== -1) {
+        input.value = results[currentIndex].textContent;
+        closeResults({
+          root,
+          resultsList,
+        });
+      }
+      return;
+    default:
+      return;
+  }
+  const currentItem = results[currentIndex];
+  const nextItem = results[nextIndex];
+  currentItem?.classList.remove("is-active");
+  currentItem?.setAttribute("aria-selected", "false");
+  // selected = currently active item in the list.
+  // (focus is always on input for combobox. technically
+  // focus is on input, hence aria-activedescendant points
+  // to the active item in the list, but we can also use
+  // aria-selected to indicate which item is currently active in the list)
+
+  // ***********************************
+  // aria-activedescendant → tells which item user is navigating
+  // aria-selected → tells which item is selected in the listbox
+  // Enter → commits value to input
+  // ***********************************
+
+  nextItem?.classList.add("is-active");
+  nextItem?.setAttribute("aria-selected", "true");
+
+  // Update aria-activedescendant to point to the active item for screen readers -
+  // as we are focusing the input, we need to tell assistive
+  // technologies which item is active in the listbox
+  input.setAttribute("aria-activedescendant", nextItem?.id || "");
+
+  nextItem?.scrollIntoView({ block: "nearest" });
+  // scrollIntoView with block: "nearest" ensures:
+  // If element is already visible → DO NOTHING
+  // If partially hidden → scroll JUST enough to reveal it
+  // scrollIntoView() scrolls the closest scrollable container.
+}
+
+function searchHandler({ e, root, resultsList }) {
+  const query = e.target.value.trim().toLowerCase();
+
+  if (query === "") {
+    closeResults({ root, resultsList });
+    return;
+  }
+
+  const filtered = getFilteredUsers(query);
+
+  renderResults({ dataList: filtered, root, resultsList });
+}
+
+export default function initSearch() {
+  const root = document.querySelector(".search");
+  const input = root.querySelector(".search__input");
+  const resultsList = root.querySelector(".search__results");
+
+  if (!root || !input || !resultsList) return;
+
+  const debouncedSearch = debounce((e) => {
+    searchHandler({ e, root, resultsList });
+  }, 300);
+
+  input.addEventListener("input", debouncedSearch);
+
+  // i think we need focus handler to address this case -- input has val and results are shown, user clicks esc/outside -> results closed, user focuses back on input -> results should be shown based on current input value
+  input.addEventListener("focus", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    if (!query) return;
+    const filtered = getFilteredUsers(query);
+    renderResults({ dataList: filtered, root, resultsList });
+  });
+
+  // Close results when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!root.contains(e.target)) {
+      closeResults({ root, resultsList });
+    }
+  });
+
+  // keyboard navigation for results
+  input.addEventListener("keydown", (e) =>
+    handleKeyDown({ e, root, input, resultsList }),
+  );
+}
