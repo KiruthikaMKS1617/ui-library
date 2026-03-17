@@ -10,7 +10,9 @@ import setUpTabs from "./tabs/setUpTabs.js";
 import setUpAccordions from "./accordion/setUpAccordions.js";
 import initForms from "./form/initForms.js";
 import initSearch from "./searchInputAutoComplete/searchInputAutoComplete.js";
+import scrollIndicator from "./scrollIndicator/scrollIndicator.js";
 
+scrollIndicator();
 copyRightYear();
 navScrollEffect();
 setUpNav();
