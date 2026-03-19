@@ -3,8 +3,8 @@
   z-index: 1100; // above nav which has z-index 1000
   top: 0;
   left: 0;
-  height: 5px;
+  height: 4px;
   width: 0%;
-  border-radius: 2px;
   background: #4f46e5;
+  transition: width 0.2s ease-out;
 }
