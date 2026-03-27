@@ -1,4 +1,4 @@
-import { createFocusTrap } from "../global/createFocusTrap.js";
+import { createFocusTrap } from "../../components/global/createFocusTrap.js";
 
 const setupNav = () => {
   const nav = document.querySelector(".nav");

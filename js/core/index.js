@@ -11,7 +11,7 @@ import setUpAccordions from "./accordion/setUpAccordions.js";
 import initForms from "./form/initForms.js";
 import initSearch from "./searchInputAutoComplete/searchInputAutoComplete.js";
 import scrollIndicator from "./scrollIndicator/scrollIndicator.js";
-import { createScrollReveal } from "./scroll-reveal/scrollReveal.js";
+import { createScrollReveal } from "../components/scroll-reveal/scrollReveal.js";
 
 scrollIndicator();
 copyRightYear();
