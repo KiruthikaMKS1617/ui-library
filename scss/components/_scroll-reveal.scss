@@ -1,0 +1,129 @@
+/* =========================
+   Scroll Reveal System
+========================= */
+
+/* Base (hidden state) */
+[data-reveal] {
+  --reveal-duration: 0.6s;
+  --reveal-delay: 0s;
+  --reveal-distance: 6rem;
+
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) ease,
+    transform var(--reveal-duration) ease;
+  transition-delay: var(--reveal-delay);
+
+  will-change: opacity, transform;
+
+  /* For demo purposes, can be removed */
+  height: 50rem;
+  margin-block: 3rem;
+
+  &:nth-child(even) {
+    background-color: #6fbd02;
+  }
+
+  &:nth-child(odd) {
+    background-color: #ffc86fe8;
+  }
+}
+
+/* Visible state */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   Direction Variants
+========================= */
+
+/* Fade Up (default) */
+[data-reveal="up"] {
+  transform: translateY(var(--reveal-distance));
+}
+
+/* Fade Down */
+[data-reveal="down"] {
+  transform: translateY(calc(var(--reveal-distance) * -1));
+}
+
+/* Fade Left */
+[data-reveal="left"] {
+  transform: translateX(var(--reveal-distance));
+}
+
+/* Fade Right */
+[data-reveal="right"] {
+  transform: translateX(calc(var(--reveal-distance) * -1));
+}
+
+/* Scale */
+[data-reveal="scale"] {
+  transform: scale(0.9);
+}
+
+/* When visible (override transforms) */
+[data-reveal].is-visible[data-reveal="down"],
+[data-reveal].is-visible[data-reveal="left"],
+[data-reveal].is-visible[data-reveal="right"],
+[data-reveal].is-visible[data-reveal="scale"] {
+  transform: none;
+}
+
+/* =========================
+   Stagger Support (manual)
+========================= */
+
+/* Optional utility classes */
+.reveal-delay-1 {
+  --reveal-delay: 0.1s;
+}
+.reveal-delay-2 {
+  --reveal-delay: 0.2s;
+}
+.reveal-delay-3 {
+  --reveal-delay: 0.3s;
+}
+.reveal-delay-4 {
+  --reveal-delay: 0.4s;
+}
+.reveal-delay-5 {
+  --reveal-delay: 0.5s;
+}
+
+/* =========================
+   Performance & Accessibility
+========================= */
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================
+   Optional: Container helpers
+========================= */
+
+/* Grid demo (if not already present) */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Card styling (for demo clarity) */
+.card {
+  height: 3rem; // overriding for demo
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
