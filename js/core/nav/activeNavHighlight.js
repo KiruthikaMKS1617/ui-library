@@ -48,16 +48,6 @@ const activeNavHighlight = () => {
     entries.forEach((entry) => {
       visibleMap.set(entry.target.id, entry.isIntersecting);
     });
-    // entries = array of sections that have changes in visibility (Eg: from visible to hidden or vice versa)
-    //“First time → set initial values --- observer runs immediately with the current visibility of all sections first time it is created
-    // After that → track updates” --- for sections that undergoes visibility changes.
-    // Eg: visible to hidden and vice versa. Only those sections will be in entries,
-    //  not all sections. So we update the visibleMap with the current visibility
-    // status of those sections that are in entries. Hence, we can access all visible
-    // sections for those whose visibility has changed (with this update)
-    // and has not changed (from the initial snapshot)
-    // ********************
-    // IntersectionObserver = initial snapshot + incremental updates
 
     const visibleSections = [...visibleMap.entries()]
       .filter(([_, isVisible]) => isVisible)
@@ -77,3 +67,14 @@ const activeNavHighlight = () => {
 };
 
 export default activeNavHighlight;
+
+// entries = array of sections that have changes in visibility (Eg: from visible to hidden or vice versa)
+//“First time → set initial values --- observer runs immediately with the current visibility of all sections first time it is created
+// After that → track updates” --- for sections that undergoes visibility changes.
+// Eg: visible to hidden and vice versa. Only those sections will be in entries,
+//  not all sections. So we update the visibleMap with the current visibility
+// status of those sections that are in entries. Hence, we can access all visible
+// sections for those whose visibility has changed (with this update)
+// and has not changed (from the initial snapshot)
+// ********************
+// IntersectionObserver = initial snapshot + incremental updates
